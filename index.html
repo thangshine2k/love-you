@@ -293,8 +293,17 @@
           // Vẽ chữ MAI ở giữa trái tim
           context.save();
 
-          var glow = 18 + Math.sin(Date.now() / 250) * 8;
+          var pulse = 1 + Math.sin(Date.now() / 300) * 0.08;
+          var glow = 25 + Math.sin(Date.now() / 300) * 15;
 
+          context.setTransform(
+            pulse,
+            0,
+            0,
+            pulse,
+            (canvas.width / 2) * (1 - pulse),
+            (canvas.height / 2 - 15) * (1 - pulse),
+          );
           // Font giống ảnh
           context.font = "italic bold 90px 'Times New Roman'";
           context.textAlign = "center";
@@ -320,8 +329,28 @@
           context.fillStyle = gradient;
 
           // Không dùng viền trắng
-          context.fillText("Mai", canvas.width / 2, canvas.height / 2 - 15);
+          var x = canvas.width / 2;
+          var y = canvas.height / 2 - 15;
 
+          // Lớp sáng ngoài cùng
+          context.globalAlpha = 0.15;
+          context.fillStyle = "#ffb3e6";
+          context.font = "italic bold 100px 'Times New Roman'";
+          context.fillText("Mai", x, y);
+
+          // Lớp sáng giữa
+          context.globalAlpha = 0.35;
+          context.shadowColor = "#ff80d5";
+          context.shadowBlur = 30;
+          context.fillStyle = "#ff80d5";
+          context.fillText("Mai", x, y);
+
+          // Lớp chính
+          context.globalAlpha = 1;
+          context.shadowColor = "#ff80d5";
+          context.shadowBlur = 20;
+          context.fillStyle = gradient;
+          context.fillText("Mai", x, y);
           context.restore();
         }
 
